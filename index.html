@@ -21,6 +21,7 @@
       perspective: 1000px;
       margin-top: 20px;
       cursor: pointer;
+      position: relative;
     }
 
     .card-inner {
@@ -44,17 +45,26 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       background-size: cover;
       background-position: center;
+      transition: filter 0.2s, transform 0.2s;
     }
 
+    /* 앞면 */
     .card-front {
       background-image: url('images/front-3.png');
       filter: brightness(0.85) contrast(1.1);
     }
 
+    /* 뒷면 */
     .card-back {
       background-image: url('images/back-3.png');
       filter: brightness(0.85) contrast(1.1);
       transform: rotateY(180deg);
+    }
+
+    /* 꾹 누른 상태 시 시각적 효과 */
+    .pressed {
+      filter: brightness(0.6) contrast(1.2);
+      transform: scale(0.97);
     }
   </style>
 </head>
@@ -62,10 +72,7 @@
 
   <div class="card" id="card">
     <div class="card-inner">
-      <!-- 앞면 -->
       <div class="card-face card-front"></div>
-
-      <!-- 뒷면 -->
       <div class="card-face card-back"></div>
     </div>
   </div>
@@ -77,15 +84,22 @@
     // 카드 클릭 → 뒤집기
     card.addEventListener('click', () => card.classList.toggle('flipped'));
 
-    // 모바일에서 꾹 누르기 이벤트
+    // 모바일 꾹 누르기 이벤트
     card.addEventListener('touchstart', function(e) {
+      card.classList.add('pressed'); // 꾹 누른 시각적 효과
       touchTimer = setTimeout(() => {
-        window.location.href = 'https://example.com'; // 이동할 사이트 URL
+        window.location.href = 'https://www.instagram.com/bu.theology_29?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=='; // 이동할 사이트
       }, 800); // 0.8초 이상 누르면 이동
     });
 
     card.addEventListener('touchend', function(e) {
-      clearTimeout(touchTimer); // 짧게 누르면 이동 방지
+      clearTimeout(touchTimer);
+      card.classList.remove('pressed'); // 손 떼면 원래 상태
+    });
+
+    card.addEventListener('touchcancel', function(e) {
+      clearTimeout(touchTimer);
+      card.classList.remove('pressed'); // 손 떼면 원래 상태
     });
   </script>
 </body>
