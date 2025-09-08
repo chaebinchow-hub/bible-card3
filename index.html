@@ -13,15 +13,32 @@
       height: 100vh;
       margin: 0;
       background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .card-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 안내 텍스트 */
+    .hint {
+      position: absolute;
+      bottom: -30px;
+      font-size: 14px;
+      color: #333;
+      text-align: center;
     }
 
     .card {
       width: 55mm;
       height: 85mm;
       perspective: 1000px;
-      margin-top: 20px;
       cursor: pointer;
       position: relative;
+      margin-bottom: 40px; /* 안내 텍스트 공간 */
     }
 
     .card-inner {
@@ -48,20 +65,17 @@
       transition: filter 0.2s, transform 0.2s;
     }
 
-    /* 앞면 */
     .card-front {
       background-image: url('images/front-3.png');
       filter: brightness(0.85) contrast(1.1);
     }
 
-    /* 뒷면 */
     .card-back {
       background-image: url('images/back-3.png');
       filter: brightness(0.85) contrast(1.1);
       transform: rotateY(180deg);
     }
 
-    /* 꾹 누른 상태 시 시각적 효과 */
     .pressed {
       filter: brightness(0.6) contrast(1.2);
       transform: scale(0.97);
@@ -70,11 +84,14 @@
 </head>
 <body>
 
-  <div class="card" id="card">
-    <div class="card-inner">
-      <div class="card-face card-front"></div>
-      <div class="card-face card-back"></div>
+  <div class="card-container">
+    <div class="card" id="card">
+      <div class="card-inner">
+        <div class="card-face card-front"></div>
+        <div class="card-face card-back"></div>
+      </div>
     </div>
+    <div class="hint">모바일에서 카드를 꾹 눌러 다른 사이트로 이동할 수 있습니다.</div>
   </div>
 
   <script>
@@ -86,9 +103,9 @@
 
     // 모바일 꾹 누르기 이벤트
     card.addEventListener('touchstart', function(e) {
-      card.classList.add('pressed'); // 꾹 누른 시각적 효과
+      card.classList.add('pressed'); // 시각적 효과
       touchTimer = setTimeout(() => {
-        window.location.href = 'https://www.instagram.com/bu.theology_29?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=='; // 이동할 사이트
+        window.location.href = 'https://www.instagram.com/bu.theology_29?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==; // 이동할 사이트
       }, 800); // 0.8초 이상 누르면 이동
     });
 
